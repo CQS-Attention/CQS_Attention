@@ -33,7 +33,7 @@ def all_inter_pairs(A, B, both_pair = False):
                 res.append((ele2, ele1))  
     return res
 
-def All_interst_sets(W, CQS_folder = './Interest_Sets'):
+def All_interst_sets(W, CQS_folder = '../Interest_Sets'):
     all_interst_sets = []
     f = open(f'{CQS_folder}/{W}/{W}.txt','r')
     f_lines = f.readlines()

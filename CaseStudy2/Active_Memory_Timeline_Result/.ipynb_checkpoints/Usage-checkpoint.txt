@@ -1,0 +1,2 @@
+Go to https://pytorch.org/memory_viz
+Drag the .pickle file to the webpage

@@ -13,7 +13,7 @@ class Scheduler:
 
         if interest_set == None:
             # a random interest set
-            self.interest_set = choice(utils.All_interst_sets(self.W, './Interest_Sets'))
+            self.interest_set = choice(utils.All_interst_sets(self.W, '../Interest_Sets'))
         else:
             self.interest_set = interest_set
         self.m = len(self.interest_set)
@@ -133,6 +133,16 @@ class Scheduler:
                     each_task_list += utils.all_inter_pairs(self.TG_Tk_map[TG1], self.TG_Tk_map[TG2], True)
                 TL.append(each_task_list)           
             self.TL = TL
+    
+    # For Case Study 2
+    def longest_subsequence(self):
+        self.gen_TG_Tk_map()
+        CQS = self.gen_CQS()
+        pair_lists_before_distill = self.gen_pair_lists_before_distillation(CQS)
+        distilled_pair_lists = self.gen_distilled_pair_lists(pair_lists_before_distill)
+        Distilled_CQS = self.gen_Distilled_CQS(distilled_pair_lists)
+        self.gen_MtrlL(Distilled_CQS)
+        return max(len(ele) for ele in self.MtrlL)
 
 class Workers:
     def __init__(self, W) -> None:
