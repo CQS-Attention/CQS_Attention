@@ -1,17 +1,17 @@
-# *CQS_Attention* documentation
+# *CQS-Attention* documentation
 
 ## Overview
-*CQS_Attention* is a sequence parallelism technique for standard attention computation. 
+*CQS-Attention* is a sequence parallelism technique for standard attention computation. 
 
 The underlying model is simply fork-join. It consists of three components: Scheduler, Workers, Tiler. Scheduler equally partitions computation responsibility in a **mutually exclusive** manner and ensures the tokens involved in local computation is **minimum**. Each worker **independently** computes the standard attention of the assigned subsequence and transfers local results to Tiler, which organizes all local results and produces the final attention. 
 
-The greatest advantage of *CQS_Attention* is the low memory requirement for a single device: suppose it requires $\mathbb{X}$ memory to execute the standard attention computation on a single device, with *CQS_Attention*, each of $W$ worker devices only needs $\frac{1}{W}\mathbb{X}$ memory size as each will execute the standard attention computation of a subsequence, which contains approximately $\frac{1}{\sqrt{W}}$ of all tokens.  
+The greatest advantage of *CQS-Attention* is the low memory requirement for a single device: suppose it requires $\mathbb{X}$ memory to execute the standard attention computation on a single device, with *CQS-Attention*, each of $W$ worker devices only needs $\frac{1}{W}\mathbb{X}$ memory size as each will execute the standard attention computation of a subsequence, which contains approximately $\frac{1}{\sqrt{W}}$ of all tokens.  
 
-Since *CQS_Attention* is a fork-join model, one very important by-product is the speedup advantage. For simplicity, we ignore the data transfer cost and define the speedup as the ratio of the computation time of the whole sequence to that of the longest subsequence, thus $\mathcal{S} = \frac{t_{\text{whole sequence}}}{t_{\text{longest subsequence}}}$. We define the performance curve of a worker device as the curve that describes its computation time with the number of tokens. Therefore, the speedup of *CQS_Attention* depends on the performance curve of the worker device in deployment. In the paper, we employ NVIDIA A100 GPU. Detailed results and analysis can be found in the paper.
+Since *CQS-Attention* is a fork-join model, one very important by-product is the speedup advantage. For simplicity, we ignore the data transfer cost and define the speedup as the ratio of the computation time of the whole sequence to that of the longest subsequence, thus $\mathcal{S} = \frac{t_{\text{whole sequence}}}{t_{\text{longest subsequence}}}$. We define the performance curve of a worker device as the curve that describes its computation time with the number of tokens. Therefore, the speedup of *CQS-Attention* depends on the performance curve of the worker device in deployment. In the paper, we employ NVIDIA A100 GPU. Detailed results and analysis can be found in the paper.
 
-*CQS_Attention* is also special because the responsibility partition of worker devices is completely mutually exclusive. Being free of communication among workers avoids many design complexity such as synchronization, race condition, etc. Moreover, mutual exclusion introduces more potentials. For example, communication between Scheduler-Workers and Workers-Tiler can be asynchronous; If $W$ devices can compute the attention of a long sequence, one device can do the same computation, but in $W$ time units. etc. More discussions can be found in the paper.
+*CQS-Attention* is also special because the responsibility partition of worker devices is completely mutually exclusive. Being free of communication among workers avoids many design complexity such as synchronization, race condition, etc. Moreover, mutual exclusion introduces more potentials. For example, communication between Scheduler-Workers and Workers-Tiler can be asynchronous; If $W$ devices can compute the attention of a long sequence, one device can do the same computation, but in $W$ time units. etc. More discussions can be found in the paper.
 
-In this repo, we provide demo code to show the workflow of *CQS_Attention* (a.k.a. case study 1 in the paper). The demo code also proves the correctness of computation, provides memory consumption summaries, and visuzlizes the partition of the $N \times N$ matrix.
+In this repo, we provide demo code to show the workflow of *CQS-Attention* (a.k.a. case study 1 in the paper). The demo code also proves the correctness of computation, provides memory consumption summaries, and visuzlizes the partition of the $N \times N$ matrix.
 
 ## Contents of Repository
 
@@ -19,7 +19,7 @@ In this repo, we provide demo code to show the workflow of *CQS_Attention* (a.k.
 SPASL_v1 repository
 ├── README.md (this file)
 ├── src
-│   ├── MODULE_CQS_Attention.py
+│   ├── MODULE_CQS-Attention.py
 │   ├── MODULE_utils.py
 │   └── MODULE_visualize.py
 ├── Interest_Sets
@@ -52,7 +52,7 @@ Specifically, for $W<53$, all interest sets are provided in ```#_full.txt```, ex
 For $W\ge53$, only the first interest set was provided by previous researchers, and we did not bother searching for more because when the sequence length ($N$) is large, the different among interest sets is very trivial.
 
 ### 3. demo
-Readers are recommended to run ```demo.ipynb``` for a better understanding of how *CQS_Attention* works. Configuring the Python environment is trivial. In this notebook, setting $N=10,W=7,d=1,\mathcal{I}=[0,1,3]$, case study 1 in the paper can be reproduced. Readers are encouraged to try other configurations. Note that, the priority of *CQS_Attention* implementation in this repo readability, at the sacrifice of efficiency and speed. For example, all cell locations are explicitly generated but it is not necessary because the mapping is consecutive: only need to record the start and end index, etc.
+Readers are recommended to run ```demo.ipynb``` for a better understanding of how *CQS-Attention* works. Configuring the Python environment is trivial. In this notebook, setting $N=10,W=7,d=1,\mathcal{I}=[0,1,3]$, case study 1 in the paper can be reproduced. Readers are encouraged to try other configurations. Note that, the priority of *CQS-Attention* implementation in this repo readability, at the sacrifice of efficiency and speed. For example, all cell locations are explicitly generated but it is not necessary because the mapping is consecutive: only need to record the start and end index, etc.
 
 One output example of the demo code is provided in ```demo-output.pdf```.
 
