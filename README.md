@@ -45,24 +45,27 @@ SPASL_v1 repository
 ### 1. src
 It contains the source code for this repo.
 
-### 2. Interest_Sets
+### 2. Supplementary Information.pdf
+As suggested by the name.
+
+### 3. Interest_Sets
 It contains interest set(s) for $W=3\dots 111$. They are determined using exhaustive search by previous researchers.
 
 Specifically, for $W<53$, all interest sets are provided in ```#_full.txt```, except for $W=43$ (There are too many). We randomly select $20$ of all interest sets, if more than $20$, and include them in ```#.txt```.
 
 For $W\ge53$, only the first interest set was provided by previous researchers, and we did not bother searching for more because when the sequence length ($N$) is large, the different among interest sets is very trivial.
 
-### 3. demo
+### 4. demo
 Readers are recommended to run ```demo.ipynb``` for a better understanding of how *CQS-Attention* works. Configuring the Python environment is trivial. In this notebook, setting $N=10,W=7,d=1,\mathcal{I}=[0,1,3]$, case study 1 in the paper can be reproduced. Readers are encouraged to try other configurations. Note that, the priority of *CQS-Attention* implementation in this repo readability, at the sacrifice of efficiency and speed. For example, all cell locations are explicitly generated but it is not necessary because the mapping is consecutive: only need to record the start and end index, etc.
 
-One output example of the demo code is provided in ```demo-output.pdf```.
+One output example of the demo code is provided in ```demo_output.pdf```.
 
-### 4. CaseStudy2
-The folder ```Active_Memory_Timeline_Result``` contains memory timeline files of case study 2 described in Appendix F in the paper.
+### 5. Section_IV_B
+The folder ```Active_Memory_Timeline_Result``` contains memory timeline files of the performance study in Section IV-B described in Section D of the Supplementary Information (SI).
 
 ```active_memory_timeline_demo.ipynb``` is the code for the generation of GPU active memory timeline files.
 
-Readers can easily reproduce case study 2 using ```case_study_2_demo.ipynb```, very similar wall-clock time numbers should be observed on NVIDIA A100 GPU (80GiB).
+Readers can easily reproduce case study 2 using ```Performance_demo.ipynb```, very similar wall-clock time numbers should be observed on NVIDIA A100 GPU (80GiB).
 
-Again, we provide the output of ```case_study_2_demo.ipynb``` in ```case-study-2-demo-output.pdf``` for readers to inspect without running the code.
+Again, we provide the output of ```Performance_demo.ipynb``` in ```Performance_demo_output.pdf``` for readers to inspect without running the code.
 
