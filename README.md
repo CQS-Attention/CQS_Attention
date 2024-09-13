@@ -11,7 +11,7 @@ Since *CQS-Attention* is a fork-join model, one very important by-product is the
 
 *CQS-Attention* is also special because the responsibility partition of worker devices is completely mutually exclusive. Being free of communication among workers avoids many design complexities such as synchronization, race condition, etc. Moreover, mutual exclusion introduces more potentials. For example, communication between Scheduler-Workers and Workers-Tiler can be asynchronous; If $W$ devices can compute the attention of a long sequence, one device can do the same computation, but in $W$ time units. etc. More discussions can be found in the paper.
 
-In this repo, we provide demo code to show the workflow of *CQS-Attention* (a.k.a. case study 1 in the paper). The demo code also proves the correctness of computation, provides memory consumption summaries, and visualizes the partition of the $N \times N$ matrix.
+In this repo, we provide demo code to show the workflow of *CQS-Attention* (Section IV-A in the paper). The demo code also proves the correctness of computation, provides memory consumption summaries, and visualizes the partition of the $N \times N$ matrix. We also provide necessary simulation code for the performance experiments (Section IV-B). Details can be found below.
 
 ## Contents of Repository
 
