@@ -18,6 +18,7 @@ In this repo, we provide demo code to show the workflow of *CQS-Attention* (a.k.
 ```
 SPASL_v1 repository
 ├── README.md (this file)
+├── SUpplementary Information.pdf
 ├── src
 │   ├── MODULE_CQS-Attention.py
 │   ├── MODULE_utils.py
@@ -31,15 +32,15 @@ SPASL_v1 repository
 ├── demo
 │   ├── demo.ipynb
 │   └── demo-output.pdf
-└── CaseStudy2
+└── Section_IV_B
     ├── Active_Memory_Timeline_Result
     │   ├── Usage.txt
     │   ├── W_1.pickle
     │   ├── ...
     │   └── W_31.pickle
     ├── active_memory_timeline_demo.ipynb
-    ├── case_study_2_demo.ipynb
-    └── case-study-2-demo-output.pdf
+    ├── Performance_demo.ipynb
+    └── Performance_demo_output.pdf
 ```
 ### 1. src
 It contains the source code for this repo.
